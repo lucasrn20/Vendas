@@ -17,16 +17,15 @@ public class Controller {
             long tempoInicial = System.nanoTime();
             PreparedStatement sentenca = c.con.prepareStatement(sql);
             ResultSet rs = sentenca.executeQuery();
-            long tempoExec= System.nanoTime() - tempoInicial;
-            System.out.println("Tempo de execução: " + tempoExec);
             while (rs.next()) {
                 Retorno retorno = new Retorno();
                 retorno.setCont(rs.getInt("count(empresa.idempresa)"));
                 retorno.setNomeEmpresa(rs.getString("Nome da Empresa"));
                 retorno.setNomeMarca(rs.getString("Nome Marca"));
                 lista.add(retorno);
-                System.out.println(retorno.getCont()+"  "+retorno.getNomeEmpresa()+"  "+ retorno.getNomeMarca());
             }
+            long tempoExec= System.nanoTime() - tempoInicial;
+            System.out.println("Tempo de execução inner: " + tempoExec);
             c.desconectar();
         } catch (SQLException erro) {
             System.out.println("Erro na sentença: " + erro.getMessage());

@@ -1,16 +1,12 @@
 package domain;
 
 import java.io.Serializable;
-import java.util.Collection;
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
-import javax.xml.bind.annotation.XmlTransient;
 
 @Entity
 @Table(name = "marca")
@@ -26,9 +22,6 @@ public class Marca implements Serializable {
     
     @Column(name = "descricao")
     private String descricao;
-    
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "idmarca")
-    private Collection<Produto> produtoCollection;
 
     public Marca() {
     }
@@ -65,15 +58,6 @@ public class Marca implements Serializable {
 
     public void setDescricao(String descricao) {
         this.descricao = descricao;
-    }
-
-    @XmlTransient
-    public Collection<Produto> getProdutoCollection() {
-        return produtoCollection;
-    }
-
-    public void setProdutoCollection(Collection<Produto> produtoCollection) {
-        this.produtoCollection = produtoCollection;
     }
 
     @Override

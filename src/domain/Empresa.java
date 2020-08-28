@@ -1,16 +1,12 @@
 package domain;
 
 import java.io.Serializable;
-import java.util.Collection;
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
-import javax.xml.bind.annotation.XmlTransient;
 
 @Entity
 @Table(name = "empresa")
@@ -25,13 +21,10 @@ public class Empresa implements Serializable {
     private String nome;
     
     @Column(name = "cnpj")
-    private int cnpj;
+    private String cnpj;
     
     @Column(name = "descricao")
     private String descricao;
-    
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "idempresa")
-    private Collection<Vendedor> vendedorCollection;
 
     public Empresa() {
     }
@@ -40,7 +33,7 @@ public class Empresa implements Serializable {
         this.idempresa = idempresa;
     }
 
-    public Empresa(Integer idempresa, String nome, int cnpj, String descricao) {
+    public Empresa(Integer idempresa, String nome, String cnpj, String descricao) {
         this.idempresa = idempresa;
         this.nome = nome;
         this.cnpj = cnpj;
@@ -63,11 +56,11 @@ public class Empresa implements Serializable {
         this.nome = nome;
     }
 
-    public int getCnpj() {
+    public String getCnpj() {
         return cnpj;
     }
 
-    public void setCnpj(int cnpj) {
+    public void setCnpj(String cnpj) {
         this.cnpj = cnpj;
     }
 
@@ -77,15 +70,6 @@ public class Empresa implements Serializable {
 
     public void setDescricao(String descricao) {
         this.descricao = descricao;
-    }
-
-    @XmlTransient
-    public Collection<Vendedor> getVendedorCollection() {
-        return vendedorCollection;
-    }
-
-    public void setVendedorCollection(Collection<Vendedor> vendedorCollection) {
-        this.vendedorCollection = vendedorCollection;
     }
 
     @Override

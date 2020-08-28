@@ -1,9 +1,6 @@
 package domain;
 
 import java.io.Serializable;
-import java.util.Collection;
-import javax.persistence.Basic;
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -11,16 +8,14 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
-import javax.xml.bind.annotation.XmlTransient;
 
 @Entity
 @Table(name = "produto")
 public class Produto implements Serializable {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "idproduto")
     private Integer idproduto;
     
@@ -30,12 +25,9 @@ public class Produto implements Serializable {
     @Column(name = "descricao")
     private String descricao;
     
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "idproduto")
-    private Collection<Venda> vendaCollection;
-    
     @JoinColumn(name = "idmarca", referencedColumnName = "idmarca")
     @ManyToOne(optional = false)
-    private Marca idmarca;
+    private int idmarca;
 
     public Produto() {
     }
@@ -74,20 +66,11 @@ public class Produto implements Serializable {
         this.descricao = descricao;
     }
 
-    @XmlTransient
-    public Collection<Venda> getVendaCollection() {
-        return vendaCollection;
-    }
-
-    public void setVendaCollection(Collection<Venda> vendaCollection) {
-        this.vendaCollection = vendaCollection;
-    }
-
-    public Marca getIdmarca() {
+    public int getIdmarca() {
         return idmarca;
     }
 
-    public void setIdmarca(Marca idmarca) {
+    public void setIdmarca(int idmarca) {
         this.idmarca = idmarca;
     }
 

@@ -1,9 +1,6 @@
 package domain;
 
 import java.io.Serializable;
-import java.util.Collection;
-import javax.persistence.Basic;
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -11,12 +8,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.persistence.NamedQueries;
-import javax.persistence.NamedQuery;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
-import javax.xml.bind.annotation.XmlRootElement;
-import javax.xml.bind.annotation.XmlTransient;
 
 @Entity
 @Table(name = "vendedor")
@@ -31,14 +23,11 @@ public class Vendedor implements Serializable {
     private String nome;
     
     @Column(name = "cpf")
-    private int cpf;
-    
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "idvendedor")
-    private Collection<Venda> vendaCollection;
-    
+    private String cpf;
+
     @JoinColumn(name = "idempresa", referencedColumnName = "idempresa")
     @ManyToOne(optional = false)
-    private Empresa idempresa;
+    private int idempresa;
 
     public Vendedor() {
     }
@@ -47,7 +36,7 @@ public class Vendedor implements Serializable {
         this.idvendedor = idvendedor;
     }
 
-    public Vendedor(Integer idvendedor, String nome, int cpf) {
+    public Vendedor(Integer idvendedor, String nome, String cpf) {
         this.idvendedor = idvendedor;
         this.nome = nome;
         this.cpf = cpf;
@@ -69,28 +58,19 @@ public class Vendedor implements Serializable {
         this.nome = nome;
     }
 
-    public int getCpf() {
+    public String getCpf() {
         return cpf;
     }
 
-    public void setCpf(int cpf) {
+    public void setCpf(String cpf) {
         this.cpf = cpf;
     }
 
-    @XmlTransient
-    public Collection<Venda> getVendaCollection() {
-        return vendaCollection;
-    }
-
-    public void setVendaCollection(Collection<Venda> vendaCollection) {
-        this.vendaCollection = vendaCollection;
-    }
-
-    public Empresa getIdempresa() {
+    public int getIdempresa() {
         return idempresa;
     }
 
-    public void setIdempresa(Empresa idempresa) {
+    public void setIdempresa(int idempresa) {
         this.idempresa = idempresa;
     }
 

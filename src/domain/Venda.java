@@ -1,7 +1,7 @@
 package domain;
 
 import java.io.Serializable;
-import javax.persistence.Basic;
+import java.sql.Date;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -9,10 +9,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.persistence.NamedQueries;
-import javax.persistence.NamedQuery;
 import javax.persistence.Table;
-import javax.xml.bind.annotation.XmlRootElement;
 
 @Entity
 @Table(name = "venda")
@@ -24,15 +21,15 @@ public class Venda implements Serializable {
     private Integer idvenda;
    
     @Column(name = "data")
-    private int data;
+    private Date data;
     
     @JoinColumn(name = "idproduto", referencedColumnName = "idproduto")
     @ManyToOne(optional = false)
-    private Produto idproduto;
+    private int idproduto;
     
     @JoinColumn(name = "idvendedor", referencedColumnName = "idvendedor")
     @ManyToOne(optional = false)
-    private Vendedor idvendedor;
+    private int idvendedor;
 
     public Venda() {
     }
@@ -41,7 +38,7 @@ public class Venda implements Serializable {
         this.idvenda = idvenda;
     }
 
-    public Venda(Integer idvenda, int data) {
+    public Venda(Integer idvenda, Date data) {
         this.idvenda = idvenda;
         this.data = data;
     }
@@ -54,27 +51,27 @@ public class Venda implements Serializable {
         this.idvenda = idvenda;
     }
 
-    public int getData() {
+    public Date getData() {
         return data;
     }
 
-    public void setData(int data) {
+    public void setData(Date data) {
         this.data = data;
     }
 
-    public Produto getIdproduto() {
+    public int getIdproduto() {
         return idproduto;
     }
 
-    public void setIdproduto(Produto idproduto) {
+    public void setIdproduto(int idproduto) {
         this.idproduto = idproduto;
     }
 
-    public Vendedor getIdvendedor() {
+    public int getIdvendedor() {
         return idvendedor;
     }
 
-    public void setIdvendedor(Vendedor idvendedor) {
+    public void setIdvendedor(int idvendedor) {
         this.idvendedor = idvendedor;
     }
 
