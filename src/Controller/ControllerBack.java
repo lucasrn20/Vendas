@@ -5,6 +5,7 @@ import domain.Produto;
 import domain.Venda;
 import domain.Vendedor;
 import domain.Marca;
+import domain.Retorno;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -75,6 +76,42 @@ public class ControllerBack {
                 lista5.add(marca);
             }
             //fazer tratamento
+            Retorno ret = new Retorno();
+            ArrayList<Retorno> retorno = new ArrayList<>();
+            int cont = 0;
+            
+            for(Empresa emp: lista1){
+                for(Vendedor vendedor: lista2){
+                    if(emp.getIdempresa() == vendedor.getIdempresa()){
+                        ret.setNomeEmpresa(emp.getNome());
+                        for(Venda venda: lista3){
+                            if(vendedor.getIdvendedor() == venda.getIdvendedor()){
+                                for(Produto prod: lista4){
+                                    if(venda.getIdproduto() == prod.getIdproduto()){
+                                        for(Marca marca: lista5){                              
+                                            if(prod.getIdmarca() == marca.getIdmarca()){
+                                                ret.setNomeMarca(marca.getNome());
+                                                cont++;                                                
+                                            }
+                                        }
+                                    }
+                                }
+                            } 
+                        }
+                    }
+                }
+                
+                ret.setCont(cont);
+                if((ret.getCont()!= 0) && (ret.getNomeEmpresa()!= "") && (ret.getNomeMarca()!= ""))
+                    retorno.add(ret);
+                ret = new Retorno();
+                cont = 0;
+            }
+            for(Retorno retor: retorno){
+                
+                System.out.println(retor.getCont()+" "+retor.getNomeEmpresa()+" "+retor.getNomeMarca()+"\n");
+            }
+            
             long tempoExec= System.nanoTime() - tempoInicial;
             System.out.println("Tempo de execução: " + tempoExec);
             c.desconectar();
