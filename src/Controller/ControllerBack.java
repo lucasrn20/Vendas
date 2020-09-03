@@ -87,7 +87,7 @@ public class ControllerBack {
                         for(Venda venda: lista3){
                             if(vendedor.getIdvendedor() == venda.getIdvendedor()){
                                 for(Produto prod: lista4){
-                                    if(venda.getIdproduto() == prod.getIdproduto()){
+                                    if(venda.getIdproduto() == prod.getIdproduto()){                                        
                                         for(Marca marca: lista5){                              
                                             if(prod.getIdmarca() == marca.getIdmarca()){
                                                 ret.setNomeMarca(marca.getNome());
@@ -108,10 +108,9 @@ public class ControllerBack {
                 cont = 0;
             }
             for(Retorno retor: retorno){
-                
                 System.out.println(retor.getCont()+" "+retor.getNomeEmpresa()+" "+retor.getNomeMarca()+"\n");
             }
-            
+            System.out.println(retorno.size());
             long tempoExec= System.nanoTime() - tempoInicial;
             System.out.println("Tempo de execução: " + tempoExec);
             c.desconectar();
