@@ -54,7 +54,7 @@ public class ControllerBack {
                 venda.setIdvenda(rs.getInt("idvenda"));
                 venda.setIdvendedor(rs.getInt("idvendedor"));
                 venda.setIdproduto(rs.getInt("idproduto"));
-                venda.setData(rs.getDate("data"));
+                //venda.setData(rs.getDate("data"));
                 lista3.add(venda);
             }
             sentenca = c.con.prepareStatement(sql4);
@@ -78,39 +78,72 @@ public class ControllerBack {
             //fazer tratamento
             Retorno ret = new Retorno();
             ArrayList<Retorno> retorno = new ArrayList<>();
-            int cont = 0;
-            
+
             for(Empresa emp: lista1){
                 for(Vendedor vendedor: lista2){
                     if(emp.getIdempresa() == vendedor.getIdempresa()){
-                        ret.setNomeEmpresa(emp.getNome());
                         for(Venda venda: lista3){
                             if(vendedor.getIdvendedor() == venda.getIdvendedor()){
                                 for(Produto prod: lista4){
                                     if(venda.getIdproduto() == prod.getIdproduto()){                                        
                                         for(Marca marca: lista5){                              
                                             if(prod.getIdmarca() == marca.getIdmarca()){
+                                                ret.setNomeEmpresa(emp.getNome());
                                                 ret.setNomeMarca(marca.getNome());
-                                                cont++;                                                
+                                                ret.setCont(1);
+                                                retorno.add(ret);
+                                                ret = new Retorno();
+                                                break;
                                             }
                                         }
+                                        break;
                                     }
                                 }
-                            } 
-                        }
+                            }
+                        } 
                     }
                 }
-                
-                ret.setCont(cont);
-                if((ret.getCont()!= 0) && (ret.getNomeEmpresa()!= "") && (ret.getNomeMarca()!= ""))
-                    retorno.add(ret);
-                ret = new Retorno();
-                cont = 0;
             }
-            for(Retorno retor: retorno){
+            
+            ArrayList<Retorno> retornoAux = new ArrayList<>();
+            int controle = 0;
+            int cont = 0;
+            for(Retorno ret1: retorno){
+                for(Retorno ret2: retorno){
+                    if((ret1.getNomeEmpresa().equals(ret2.getNomeEmpresa())) 
+                            && (ret1.getNomeMarca().equals(ret2.getNomeMarca()))){
+                        cont++;
+                    }
+                }
+                ret.setNomeEmpresa(ret1.getNomeEmpresa());
+                ret.setNomeMarca(ret1.getNomeMarca());
+                ret.setCont(cont);
+
+                if(retornoAux.isEmpty()){
+                    retornoAux.add(ret);
+                }else{
+                    for(Retorno retAux: retornoAux){
+                        if((retAux.getCont().equals(ret.getCont()))
+                                && (retAux.getNomeEmpresa().equals(ret.getNomeEmpresa()))
+                                && (retAux.getNomeMarca().equals(ret.getNomeMarca()))){
+                                controle = 0;
+                        }else{
+                            controle = 1;
+                        }
+                    }
+                    if(controle == 1){
+                        retornoAux.add(ret);
+                        controle = 0;
+                    }
+                } 
+                ret = new Retorno();
+                cont = 0; 
+            }
+            
+            for(Retorno retor: retornoAux){
                 System.out.println(retor.getCont()+" "+retor.getNomeEmpresa()+" "+retor.getNomeMarca()+"\n");
             }
-            System.out.println(retorno.size());
+            System.out.println(retornoAux.size());
             long tempoExec= System.nanoTime() - tempoInicial;
             System.out.println("Tempo de execução: " + tempoExec);
             c.desconectar();
