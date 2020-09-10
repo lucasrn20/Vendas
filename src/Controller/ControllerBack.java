@@ -93,10 +93,8 @@ public class ControllerBack {
                                                 ret.setCont(1);
                                                 retorno.add(ret);
                                                 ret = new Retorno();
-                                                break;
                                             }
                                         }
-                                        break;
                                     }
                                 }
                             }
@@ -138,10 +136,6 @@ public class ControllerBack {
                 } 
                 ret = new Retorno();
                 cont = 0; 
-            }
-            
-            for(Retorno retor: retornoAux){
-                System.out.println(retor.getCont()+" "+retor.getNomeEmpresa()+" "+retor.getNomeMarca()+"\n");
             }
             System.out.println(retornoAux.size());
             long tempoExec= System.nanoTime() - tempoInicial;

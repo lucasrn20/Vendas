@@ -24,11 +24,7 @@ public class Controller {
                 retorno.setNomeMarca(rs.getString("Nome Marca"));
                 lista.add(retorno);
             }
-            for(Retorno retor: lista){
-                System.out.println(retor.getCont()+" "+retor.getNomeEmpresa()+" "+retor.getNomeMarca()+"\n");
-            }
             System.out.println(lista.size());
-            
             long tempoExec= System.nanoTime() - tempoInicial;
             System.out.println("Tempo de execução inner: " + tempoExec);
             c.desconectar();
