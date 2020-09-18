@@ -11,7 +11,7 @@ public class Controller {
     public void view() {
         ArrayList<Retorno> lista = new ArrayList<>();
         Conexao c = new Conexao();
-        String sql = "SELECT * FROM vendas.vw_vendedorempresa";
+        String sql = "SELECT * FROM vendas.vw_marcaempresa";
 
         try {
             long tempoInicial = System.nanoTime();
